@@ -1,15 +1,15 @@
 "use client";
 import { useState } from "react";
-import Typewrite from "./components/Typewriter";
-import MarkdownDisplay from "./components/MarkdownDisplay";
-import Prompt from "./components/Prompt"; // Prompt bileşenini içe aktar
+
+import Prompt from "./components/layout/Prompt";
+import Header from "./components/layout/Header";
+import Response from "./components/layout/Response";
 
 export default function Home() {
 	const [response, setResponse] = useState("");
 	const [loading, setLoading] = useState(false);
 
 	const handleSendPrompt = async (prompt: string) => {
-		// Prompt bileşeninden promptu alır
 		if (!prompt) return;
 		setLoading(true);
 		setResponse("");
@@ -48,18 +48,9 @@ export default function Home() {
 
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen p-6">
-			<div className="text-2xl font-bold mb-4 font-mono">
-				<Typewrite
-					texts={["How can I help you?", "...", "Promptify"]}
-					speed={100}
-				/>
-			</div>
+			<Header />
 			<Prompt onSend={handleSendPrompt} loading={loading} />{" "}
-			{response && (
-				<div className="mt-6 p-4 rounded-lg w-full max-w-3xl text-white">
-					<MarkdownDisplay markdownText={response} />
-				</div>
-			)}
+			<Response response={response} />
 		</div>
 	);
 }

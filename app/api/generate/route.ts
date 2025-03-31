@@ -7,7 +7,7 @@ const ai = new GoogleGenerativeAI(process.env.API_KEY || "");
 
 export async function POST(req: Request) {
 	const { prompt } = await req.json();
-	const { signal } = req; // İptal işaretini al
+	const { signal } = req;
 
 	if (!process.env.API_KEY) {
 		return NextResponse.json(
@@ -38,10 +38,7 @@ export async function POST(req: Request) {
 			async start(controller) {
 				try {
 					for await (const chunk of result.stream) {
-						if (signal?.aborted) {
-							// İptal isteği geldiyse akışı durdur
-							break;
-						}
+						if (signal?.aborted) break;
 						const text = chunk.text();
 						controller.enqueue(encoder.encode(text));
 					}
