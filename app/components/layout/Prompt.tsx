@@ -43,7 +43,7 @@ const Prompt: React.FC<PromptProps> = ({ onSend, loading }) => {
 				onClick={handleSubmit}
 				disabled={!prompt || loading}
 				aria-label="Send prompt">
-				{loading ? "Loading..." : "Send"}
+				{loading ? "Loading..." : "Enter"}
 				<img
 					src="/arrow-icon.svg"
 					alt="Arrow Icon"
